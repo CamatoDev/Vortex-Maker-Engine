@@ -103,12 +103,14 @@
   <ItemGroup>
     <ClInclude Include="pch\pch.h" />
     <ClInclude Include="src\Logger\Logger.h" />
+    <ClInclude Include="src\Logger\Severity.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch\pch.cpp">
       <PrecompiledHeader>Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="src\Logger\Logger.cpp" />
+    <ClCompile Include="src\Logger\Severity.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Core\Core.vcxproj">

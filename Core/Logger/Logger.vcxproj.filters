@@ -18,12 +18,18 @@
     <ClInclude Include="src\Logger\Logger.h">
       <Filter>src\Logger</Filter>
     </ClInclude>
+    <ClInclude Include="src\Logger\Severity.h">
+      <Filter>src\Logger</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch\pch.cpp">
       <Filter>pch</Filter>
     </ClCompile>
     <ClCompile Include="src\Logger\Logger.cpp">
+      <Filter>src\Logger</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Logger\Severity.cpp">
       <Filter>src\Logger</Filter>
     </ClCompile>
   </ItemGroup>
