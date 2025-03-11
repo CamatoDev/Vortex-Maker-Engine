@@ -14,6 +14,7 @@ Vortex Maker Engine est un moteur de jeu conçu pour être flexible, performant 
    - Méthodes pour récupérer les types de logs
    - Affichage des logs dans un format défini
    - Préparation pour l'analyse avancée des logs
+
 ✅ **Système ECS (Entity Component System)** 🎭  
 ✅ **Moteur physique** 🏗️  
 ✅ **Mathématiques avancées (vecteurs, matrices, transformations)** 📐  
