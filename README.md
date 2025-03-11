@@ -54,7 +54,7 @@ Vortex-Maker-Engine/
 
 1. Clonez le dépôt :
    ```sh
-   git clone <repo_url>
+   git clone https://github.com/CamatoDev/Vortex-Maker-Engine.git
    cd Vortex-Maker-Engine
    ```
 2. Génération du projet avec Premake5 :
