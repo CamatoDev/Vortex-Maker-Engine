@@ -1,42 +1,43 @@
 # Vortex Maker Engine
 
-🚀 **Vortex Maker Engine** est un moteur de jeu en C++ conçu pour être multiplateforme et extensible.
+🚀 **Un moteur de jeu C++ modulaire et multiplateforme**
 
-## 📜 Fonctionnalités principales
+Vortex Maker Engine est un moteur de jeu conçu pour être flexible, performant et adapté à la création de jeux vidéo sur plusieurs plateformes. Il est développé en C++ et intègre plusieurs fonctionnalités essentielles pour le développement de jeux.
 
-- 🖥️ **Gestion des fenêtres et des entrées**
-- 🎨 **Rendu graphique** (OpenGL, SDL)
-- 🖼️ **Chargement d'images et gestion des textures**
-- 🛠️ **Interface utilisateur pour outils de debug et éditeur**
-- 📝 **Formats de configuration et sauvegarde**
-- 🔄 **Langages de scripting** (principalement C++)
-- 🏗️ **Moteur physique**
-- 📐 **Mathématiques et gestion des vecteurs/matrices** (développement d'une bibliothèque mathématique maison)
-- 📝 **Système de log** (logger interne pour journalisation et gestion des erreurs)
-- 🎭 **Système ECS (Entity Component System)** développé from scratch
-- 🔧 **Gestion de projet et compilation** avec Premake5
+## 📌 Fonctionnalités principales
+
+✅ **Gestion des fenêtres et des entrées** 🖥️  
+✅ **Rendu graphique** (OpenGL, SDL) 🎨  
+✅ **Gestion des textures et du chargement d'images** 🖼️  
+✅ **Système de log (from scratch)** 📝  
+   - Supporte plusieurs niveaux de sévérité : `TRACE`, `ASSERT`, `INFO`, `DEBUG`, `WARNING`, `ERROR`, `CRITICAL`, `FATAL`
+   - Méthodes pour récupérer les types de logs
+   - Affichage des logs dans un format défini
+   - Préparation pour l'analyse avancée des logs
+✅ **Système ECS (Entity Component System)** 🎭  
+✅ **Moteur physique** 🏗️  
+✅ **Mathématiques avancées (vecteurs, matrices, transformations)** 📐  
+✅ **Outils d'édition et debug intégrés** 🛠️  
+✅ **Support de scripting (C++)** 🔄  
+✅ **Gestion de projet avec Premake5** 🔧  
 
 ## 📂 Structure du projet
 
 ```
-VORTEX-MAKER-ENGINE/
+Vortex-Maker-Engine/
 │-- Build/
 │-- Core/
-│   │-- Pch/
-│   │-- Src/
-│   │-- Logger/
-│   │-- Unittest/
+│   ├── Core/
+│   ├── Logger/
+│   ├── Unittest/
 │-- Engine/
-│   │-- VmEditor/
-│   │   │-- Src/
-│   │-- VortexMakerEngine/
-│   │   │-- Pch/
-│   │   │-- Src/
+│   ├── VmEditor/
+│   ├── VortexMakerEngine/
 │-- External/
-│   │-- Bin/
-│   │-- Libs/
-│-- Scripts/
-│-- Tests/
+│   ├── Bin/
+│   ├── Libs/
+│   ├── Scripts/
+│   ├── Tests/
 │-- .gitignore
 │-- build.bat
 │-- clear.bat
@@ -48,30 +49,28 @@ VORTEX-MAKER-ENGINE/
 │-- VortexMakerEngine.sln
 ```
 
-## 🚀 Installation et Utilisation
+## 🛠️ Installation et Compilation
 
-1. **Cloner le projet** :
+1. Clonez le dépôt :
    ```sh
-   git clone https://github.com/votre-repo/VortexMakerEngine.git
-   cd VortexMakerEngine
+   git clone <repo_url>
+   cd Vortex-Maker-Engine
    ```
-2. **Générer les fichiers du projet** :
+2. Génération du projet avec Premake5 :
    ```sh
    ./gen.bat
    ```
-3. **Compiler le projet** :
+3. Compilation du moteur :
    ```sh
    ./build.bat
    ```
-4. **Exécuter le moteur** :
+4. Exécution du moteur :
    ```sh
    ./run.bat
    ```
 
+## 📢 Contribution
+Les contributions sont les bienvenues ! Si vous souhaitez participer, merci de consulter les issues ouvertes et de proposer vos améliorations.
+
 ## 📜 Licence
-Ce projet est sous licence MIT - voir le fichier [LICENSE](LICENSE) pour plus de détails.
-
----
-
-🔥 **Vortex Maker Engine est en développement actif !** Toute contribution est la bienvenue !
-
+Vortex Maker Engine est sous licence **MIT**.
