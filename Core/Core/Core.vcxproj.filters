@@ -15,7 +15,19 @@
     <ClInclude Include="pch\pch.h">
       <Filter>pch</Filter>
     </ClInclude>
+    <ClInclude Include="src\Core\Assertion.h">
+      <Filter>src\Core</Filter>
+    </ClInclude>
     <ClInclude Include="src\Core\Core.h">
+      <Filter>src\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Core\Exports.h">
+      <Filter>src\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Core\Inline.h">
+      <Filter>src\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Core\Platform.h">
       <Filter>src\Core</Filter>
     </ClInclude>
   </ItemGroup>
@@ -24,6 +36,9 @@
       <Filter>pch</Filter>
     </ClCompile>
     <ClCompile Include="src\Core\Core.cpp">
+      <Filter>src\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Core\Platform.cpp">
       <Filter>src\Core</Filter>
     </ClCompile>
   </ItemGroup>

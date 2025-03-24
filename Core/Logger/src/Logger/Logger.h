@@ -1,80 +1,123 @@
 #ifndef __LOGGER_LOGGER_H__
 #define __LOGGER_LOGGER_H__
 
-#include <functional>
-#include "Severity.h"
+#include <string>
+#include <vector>
+#include <memory>
+#include <optional>
+#include <source_location>
 
-    class  Logger {
-    public:
-        Logger();
-        Logger(const std::string& name);
-        virtual ~Logger() = default;
-        const std::string& GetName() const;
-        void SetName(const std::string& name);
+// Inclure les utilitaires
+#include "Utilities.h"
+#include "Core/Exports.h"
 
-        Logger& Details(const char* file, unsigned int ligne, const char* function);
+/**
+ * @Enum LogLevel
+ * @Description Définit les niveaux de log disponibles pour l'application.
+ */
+enum class CORE_API LogLevel { DEBUG, INFO, WARNING, ERROR, ASSERT };
 
-        /** 
-        * - [Log] : [Il s'agit de la méthode qui vas permettre l'affichage du log avec le format choisi]. 
-        * 
-        * @param ([Severity]) [severity] : [Le type de log]. 
-        * @param ([char*]) [format] : [Le format d'écriture]. 
-        */
-        void Log(Severity severity, const char* format = "") {
-            PreWrite(severity, format);
-        }
+/**
+ * @Function LogLevelToString
+ * @Description Convertit une valeur LogLevel en sa représentation textuelle.
+ */
+inline std::string CORE_API LogLevelToString(LogLevel level) {
+    switch (level) {
+        case LogLevel::DEBUG:   return "DEBUG";
+        case LogLevel::INFO:    return "INFO";
+        case LogLevel::WARNING: return "WARNING";
+        case LogLevel::ERROR:   return "ERROR";
+        case LogLevel::ASSERT:   return "ASSERT";
+        default:                return "UNKNOWN";
+    }
+}
 
-        // Specific log methods for different severity levels
-        template<typename... Args>
-        void Info(const char* format = "", Args&&... args) {
-            Log(Severity::Severity_Info, format, args...);
-        }
+/**
+ * @Function GetColorCode
+ * @Description Retourne le code ANSI de couleur associé au niveau de log.
+ */
+inline std::string GetColorCode(LogLevel level) {
+    switch (level) {
+        case LogLevel::DEBUG:   return "\033[36m"; // Cyan
+        case LogLevel::INFO:    return "\033[32m"; // Vert
+        case LogLevel::WARNING: return "\033[33m"; // Jaune
+        case LogLevel::ERROR:   return "\033[31m"; // Rouge
+        case LogLevel::ASSERT:   return "\033[31m"; // Rouge
+        default:                return "\033[0m";
+    }
+}
 
-        template<typename... Args>
-        void Assert(const char* format = "", Args&&... args) {
-            Log(Severity::Severity_Assert, format, args...);
-        }
+/**
+ * @Interface LoggerTarget
+ * @Description Interface pour les cibles de log. Chaque cible doit implémenter la méthode Log.
+ */
+class CORE_API LoggerTarget {
+public:
+    virtual ~LoggerTarget() {}
+    virtual void Log(LogLevel level, const std::string& message,
+                     const char* file, int line, const char* func,
+                     const std::string& timestamp) = 0;
+};
 
-        template<typename... Args>
-        void Error(const char* format = "", Args&&... args) {
-            Log(Severity::Severity_Error, format, args...);
-        }
+/**
+ * @Class Logger
+ * @Description Système de log centralisant plusieurs cibles (Console, File, GUI).
+ */
+class CORE_API Logger {
+public:
+    explicit Logger(const std::string& appName);
+    void SetApplicationName(const std::string& appName);
+    
+    /**
+     * @Function Source
+     * @Description Stocke temporairement le contexte d'appel pour le prochain appel de log.
+     * @Param (const std::source_location&) location : Contexte à stocker.
+     * @Return (Logger&) : Référence pour chaîner les appels.
+     */
+    Logger& Source(const std::source_location& location = std::source_location::current());
+    
+    /**
+     * @Function Log
+     * @Description Enregistre un message de log en utilisant le contexte stocké via Source() (si défini),
+     *              sinon en capturant automatiquement le contexte.
+     */
+    void Log(LogLevel level, const std::string& message,
+             const std::source_location& defaultLocation = std::source_location::current());
 
-        template<typename... Args>
-        void Warning(const char* format = "", Args&&... args) {
-            Log(Severity::Severity_Warning, format, args...);
-        }
+    void LogAssert(bool condition, const std::string& message,
+             const std::source_location& defaultLocation = std::source_location::current());         
+    
+    template<typename... Args>
+    void Debug(const std::string& fmt, const Args&... args) {
+         Log(LogLevel::DEBUG, Format(fmt, args...), std::source_location::current());
+    }
+    
+    template<typename... Args>
+    void Info(const std::string& fmt, const Args&... args) {
+         Log(LogLevel::INFO, Format(fmt, args...), std::source_location::current());
+    }
+    
+    template<typename... Args>
+    void Warning(const std::string& fmt, const Args&... args) {
+         Log(LogLevel::WARNING, Format(fmt, args...), std::source_location::current());
+    }
+    
+    template<typename... Args>
+    void Error(const std::string& fmt, const Args&... args) {
+         Log(LogLevel::ERROR, Format(fmt, args...), std::source_location::current());
+    }
 
-        template<typename... Args>
-        void Debug(const char* format = "", Args&&... args) {
-            Log(Severity::Severity_Debug, format, args...);
-        }
+    template<typename... Args>
+    void Assert(bool condition, const std::string& fmt, const Args&... args) {
+         LogAssert(condition, Format(fmt, args...), std::source_location::current());
+    } 
+    
+    void AddTarget(std::unique_ptr<LoggerTarget> target);
+    
+private:
+    std::string ApplicationName;
+    std::vector<std::unique_ptr<LoggerTarget>> Targets;
+    std::optional<std::source_location> mLocation;
+};
 
-        template<typename... Args>
-        void Trace(const char* format = "", Args&&... args) {
-            Log(Severity::Severity_Trace, format, args...);
-        }
-
-        template<typename... Args>
-        void Critical(const char* format = "", Args&&... args) {
-            Log(Severity::Severity_Critical, format, args...);
-        }
-
-        template<typename... Args>
-        void Fatal(const char* format = "", Args&&... args) {
-            Log(Severity::Severity_Fatal, format, args...);
-        }
-
-    private:
-    /** 
-    * - [PreWrite] : [fonction pour l'ecriture des différents messages log]. 
-    * 
-    * @Description : [Cette methode vas récuperer le type de message de log pour et lui affecté une couleur être precisé
-    *  en début ainsi que message qui sera mis au format prevu avant d'être affiché par la suite.]
-    * @param ([Severity]) [severity] : [le type du message de log].
-    * @param ([string]) [message] : [Le message qui sera affiché après le type de log]. 
-    */ 
-        void PreWrite(Severity Severity, const std::string& message);
-    };
-
-#endif  // __LOGGER_LOGGER_H__"
+#endif // __LOGGER_LOGGER_H__
