@@ -24,14 +24,12 @@ int main() {
     logger.Error("Erreur critique dans le module {0} : code {1}", "auth", -1);
 
     // Test du assert
-    int x = 4;
-    int y = 6;
-    int z;
+    int x = 6;
+    int y = 3;
 
-    z = x + y;
-
-    logger.Assert(z != 10, "La valeur n'est pas la bonne");
-    logger.Assert(z == 10, "La valeur est la bonne");
+    logger.Assert(y != 0, "Erreur : Division par 0 impossible !");
+    int z = x / y;
+    std::cout << "Le resultat est : " << z << "\n";
 
     return 0;
 }

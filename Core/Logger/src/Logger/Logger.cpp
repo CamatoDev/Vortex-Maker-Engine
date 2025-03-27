@@ -4,6 +4,7 @@
 #include "Utilities.h"
 #include <iostream>
 #include <fstream>
+#include <Core/Assertion.h>
 
 // --- ConsoleLogger Implementation ---
 void ConsoleLogger::Log(LogLevel level, const std::string& message,
@@ -94,13 +95,14 @@ void Logger::LogAssert(bool condition, const std::string& message,
     std::source_location location = mLocation.has_value() ? mLocation.value() : defaultLocation;
     mLocation.reset();
 
-    if(condition){
+    if(!condition){
         std::string timestamp = GetCurrentTimestamp();
         std::string fullMessage = "[" + ApplicationName + "] " + message;
 
         if (Targets.empty()) {
             std::cerr << "[Fallback Logger][" << timestamp << "] "
                     << "[ASSERT] " << fullMessage << std::endl;
+                    std::abort(); \
             return;
         }
 
@@ -115,6 +117,7 @@ void Logger::LogAssert(bool condition, const std::string& message,
                 std::cerr << "[Logging Error] Exception dans la cible : " << ex.what() << std::endl;
             }
         }
+        std::abort(); \
     }
 }
 
