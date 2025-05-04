@@ -7,13 +7,28 @@ Vortex Maker Engine est un moteur de jeu conçu pour être flexible, performant 
 ## 📌 Fonctionnalités principales
 
 ✅ **Gestion des fenêtres et des entrées** 🖥️  
-✅ **Rendu graphique** (OpenGL, SDL) 🎨  
+✅ **Rendu graphique** 🎨  
 ✅ **Gestion des textures et du chargement d'images** 🖼️  
-✅ **Système de log (from scratch)** 📝  
-   - Supporte plusieurs niveaux de sévérité : `TRACE`, `ASSERT`, `INFO`, `DEBUG`, `WARNING`, `ERROR`, `CRITICAL`, `FATAL`
-   - Méthodes pour récupérer les types de logs
-   - Affichage des logs dans un format défini
-   - Préparation pour l'analyse avancée des logs
+✅ **Système de log (from scratch)** 📝 
+
+Le moteur dispose d'un **système de log avancé** permettant un suivi efficace des événements et erreurs. Il prend en charge plusieurs niveaux de log :
+- **DEBUG** : Informations utiles au débogage.
+- **INFO** : Messages informatifs standards.
+- **WARNING** : Indique un potentiel problème.
+- **ERROR** : Signale une erreur ayant un impact sur l'exécution.
+- **ASSERT** : Nouveau niveau de log permettant d'effectuer des **vérifications critiques** en développement.
+
+💡 **Le système de log permet de récupérer les types de logs, les afficher au format défini, et facilitera l'analyse des logs ultérieurement.**
+
+####  Système d'Assertion
+Un **système d'assertion** a été intégré afin d'améliorer la robustesse du moteur en permettant de détecter des incohérences dès l'exécution du code. Les assertions déclenchent des logs et peuvent interrompre l'exécution en cas d'échec.
+
+✅ **Tests Unitaires🔬**  
+Un premier test unitaire a été ajouté pour vérifier les **opérations mathématiques de base** :
+- Addition
+- Soustraction
+- Multiplication
+- Division
 
 ✅ **Système ECS (Entity Component System)** 🎭  
 ✅ **Moteur physique** 🏗️  
