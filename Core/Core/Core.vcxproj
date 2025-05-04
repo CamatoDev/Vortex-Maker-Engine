@@ -107,6 +107,7 @@
     <ClInclude Include="src\Core\Exports.h" />
     <ClInclude Include="src\Core\Inline.h" />
     <ClInclude Include="src\Core\Platform.h" />
+    <ClInclude Include="src\Core\Window.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch\pch.cpp">
@@ -114,6 +115,7 @@
     </ClCompile>
     <ClCompile Include="src\Core\Core.cpp" />
     <ClCompile Include="src\Core\Platform.cpp" />
+    <ClCompile Include="src\Core\Window.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

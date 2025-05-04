@@ -90,7 +90,7 @@ void Logger::Log(LogLevel level, const std::string& message,
     }
 }
 
-void Logger::LogAssert(bool condition, const std::string& message,
+void Logger::LogAssertFalse(bool condition, const std::string& message,
                  const std::source_location& defaultLocation) {
     std::source_location location = mLocation.has_value() ? mLocation.value() : defaultLocation;
     mLocation.reset();
@@ -102,7 +102,7 @@ void Logger::LogAssert(bool condition, const std::string& message,
         if (Targets.empty()) {
             std::cerr << "[Fallback Logger][" << timestamp << "] "
                     << "[ASSERT] " << fullMessage << std::endl;
-                    std::abort(); \
+                    /*std::abort(); \ */
             return;
         }
 
@@ -117,7 +117,100 @@ void Logger::LogAssert(bool condition, const std::string& message,
                 std::cerr << "[Logging Error] Exception dans la cible : " << ex.what() << std::endl;
             }
         }
-        std::abort(); \
+        /*std::abort(); \ */
+    }
+}
+
+void Logger::LogAssertTrue(bool condition, const std::string& message,
+                 const std::source_location& defaultLocation) {
+    std::source_location location = mLocation.has_value() ? mLocation.value() : defaultLocation;
+    mLocation.reset();
+
+    if(condition){
+        std::string timestamp = GetCurrentTimestamp();
+        std::string fullMessage = "[" + ApplicationName + "] " + message;
+
+        if (Targets.empty()) {
+            std::cerr << "[Fallback Logger][" << timestamp << "] "
+                    << "[ASSERT] " << fullMessage << std::endl;
+                    /*std::abort(); \ */
+            return;
+        }
+
+        for (auto& target : Targets) {
+            try {
+                target->Log(LogLevel::ASSERT, fullMessage,
+                            location.file_name(),
+                            location.line(),
+                            location.function_name(),
+                            timestamp);
+            } catch (const std::exception& ex) {
+                std::cerr << "[Logging Error] Exception dans la cible : " << ex.what() << std::endl;
+            }
+        }
+        /*std::abort(); \ */
+    }
+}
+
+void Logger::LogAssertEqual(float x, float y, const std::string& message,
+                 const std::source_location& defaultLocation) {
+    std::source_location location = mLocation.has_value() ? mLocation.value() : defaultLocation;
+    mLocation.reset();
+
+    if(x == y){
+        std::string timestamp = GetCurrentTimestamp();
+        std::string fullMessage = "[" + ApplicationName + "] " + message;
+
+        if (Targets.empty()) {
+            std::cerr << "[Fallback Logger][" << timestamp << "] "
+                    << "[ASSERT] " << fullMessage << std::endl;
+                    /*std::abort(); \ */
+            return;
+        }
+
+        for (auto& target : Targets) {
+            try {
+                target->Log(LogLevel::ASSERT, fullMessage,
+                            location.file_name(),
+                            location.line(),
+                            location.function_name(),
+                            timestamp);
+            } catch (const std::exception& ex) {
+                std::cerr << "[Logging Error] Exception dans la cible : " << ex.what() << std::endl;
+            }
+        }
+        /*std::abort(); \ */
+    }
+}
+
+void Logger::LogAssertNull(float x, const std::string& message,
+                 const std::source_location& defaultLocation) {
+    std::source_location location = mLocation.has_value() ? mLocation.value() : defaultLocation;
+    mLocation.reset();
+
+    if(x == 0){
+        std::string timestamp = GetCurrentTimestamp();
+        std::string fullMessage = "[" + ApplicationName + "] " + message;
+
+        if (Targets.empty()) {
+            std::cerr << "[Fallback Logger][" << timestamp << "] "
+                    << "[ASSERT] " << fullMessage << std::endl;
+                    /*std::abort(); \ */
+            return;
+        }
+
+        for (auto& target : Targets) {
+            try {
+                target->Log(LogLevel::ASSERT, fullMessage,
+                            location.file_name(),
+                            location.line(),
+                            location.function_name(),
+                            timestamp);
+            } catch (const std::exception& ex) {
+                std::cerr << "[Logging Error] Exception dans la cible : " << ex.what() << std::endl;
+            }
+        }
+        /*std::abort(); \ */
     }
 }
 

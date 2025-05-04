@@ -2,12 +2,30 @@
 #include <iostream>
 
 #include <Logger/Log.h>
+#include <Core/Window.h>
 #include <string>
 
 #define logger logger__.Source()
 Logger logger__("Unkeny Editor");
 
 int main() {
+    // Création d'une fenêtre 
+    std::cout << "Création de la fenêtre\n";
+    Window* myWindow = new Window();
+
+    // Variable de la boucle d'affichage 
+    bool running = true;
+    // Boucle de rendu 
+    while(running){
+        if(!myWindow->ProcessMessages()){
+            std::cout << "Closing window\n";
+            running = false;
+        }
+
+        //Render 
+        Sleep(10);
+    }
+
     // Ajout des cibles : Console, File et GUI simulé.
     logger.AddTarget(std::make_unique<ConsoleLogger>());
     logger.AddTarget(std::make_unique<FileLogger>("log.txt"));
@@ -27,9 +45,10 @@ int main() {
     int x = 6;
     int y = 3;
 
-    logger.Assert(y != 0, "Erreur : Division par 0 impossible !");
+    logger.AssertFalse(y != 0, "Erreur : Division par 0 impossible !");
     int z = x / y;
     std::cout << "Le resultat est : " << z << "\n";
 
+    delete myWindow;
     return 0;
 }

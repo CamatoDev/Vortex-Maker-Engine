@@ -1,5 +1,39 @@
 #include "pch.h"
 #include "Unitest.h"
+#include <stdio.h>
+#include <string.h>
+
+void Unitest::RegisterTest(const std::string& name, const std::string& description){
+    //Enregistrement de tout les test à effetuer
+    /*Créer une array qui vas repertorier le nombre de fonction enregistré pour le test.*/
+}
+void Unitest::InitTest(){
+    //Initialisation des test 
+}
+void Unitest::Main(){
+    //
+}
+void Unitest::RunAllTest(){
+    
+    // Affichage d'un message de bienvenue avec des couleurs et des sauts de ligne
+    std::string message;
+    message = "\n\n";
+    message += "********************************************************\n";
+    message += "**  Bienvenue dans l'application de tests unitaire !  **\n";
+    message += "********************************************************\n\n";
+    std::cout << message << "\n";
+
+    // Exécution des tests
+    /*Appeller chacune des fonctions les une après les autres.*/
+
+    // Affichage d'un message de fin avec des couleurs et des sauts de ligne
+    message = "\n\n";
+    message += "********************************************************\n";
+    message += "**  Tous les tests ont ete executes.  **\n";
+    message += "********************************************************\n\n";
+
+    std::cout << message << "\n";
+}
 
 
 // // Fonction addition

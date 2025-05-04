@@ -84,8 +84,17 @@ public:
     void Log(LogLevel level, const std::string& message,
              const std::source_location& defaultLocation = std::source_location::current());
 
-    void LogAssert(bool condition, const std::string& message,
-             const std::source_location& defaultLocation = std::source_location::current());         
+    void LogAssertFalse(bool condition, const std::string& message,
+             const std::source_location& defaultLocation = std::source_location::current());  
+    
+    void LogAssertTrue(bool condition, const std::string& message,
+             const std::source_location& defaultLocation = std::source_location::current()); 
+
+    void LogAssertEqual(float x, float y, const std::string& message,
+             const std::source_location& defaultLocation = std::source_location::current()); 
+
+    void LogAssertNull(float x, const std::string& message,
+             const std::source_location& defaultLocation = std::source_location::current()); 
     
     template<typename... Args>
     void Debug(const std::string& fmt, const Args&... args) {
@@ -108,9 +117,24 @@ public:
     }
 
     template<typename... Args>
-    void Assert(bool condition, const std::string& fmt, const Args&... args) {
-         LogAssert(condition, Format(fmt, args...), std::source_location::current());
-    } 
+    void AssertFalse(bool condition, const std::string& fmt, const Args&... args) {
+        LogAssertFalse(condition, Format(fmt, args...), std::source_location::current());
+    }
+
+    template<typename... Args>
+    void AssertTrue(bool condition, const std::string& fmt, const Args&... args) {
+        LogAssertTrue(condition, Format(fmt, args...), std::source_location::current());
+    }
+
+    template<typename... Args>
+    void AssertNull(float x, const std::string& fmt, const Args&... args) {
+        LogAssertNull(x, Format(fmt, args...), std::source_location::current());
+    }
+
+    template<typename... Args>
+    void AssertEqual(float x, float y, const std::string& fmt, const Args&... args) {
+        LogAssertEqual(x, y, Format(fmt, args...), std::source_location::current());
+    }
     
     void AddTarget(std::unique_ptr<LoggerTarget> target);
     
